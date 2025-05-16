@@ -1,0 +1,27 @@
+{
+   "name": "TsServer",
+   "version": "0.0.1",
+   "description": "Awesome project developed with TypeORM.",
+   "type": "commonjs",
+   "devDependencies": {
+      "@types/bcrypt": "^5.0.2",
+      "@types/node": "^22.15.17",
+      "nodemon": "^3.1.10",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.8.2"
+   },
+   "dependencies": {
+      "@hapi/hapi": "^21.4.0",
+      "bcrypt": "^5.1.1",
+      "dotenv": "^16.5.0",
+      "jsonwebtoken": "^9.0.2",
+      "mongodb": "^6.15.0",
+      "reflect-metadata": "^0.2.2",
+      "typeorm": "0.3.23"
+   },
+   "scripts": {
+      "start": "ts-node src/index.ts",
+      "typeorm": "typeorm-ts-node-commonjs",
+      "dev": "nodemon src/index.ts"
+   }
+}
