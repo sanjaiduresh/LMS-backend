@@ -10,7 +10,7 @@ export class LeaveBalance {
   sick: number;
 
   @Column()
-  annual: number;
+  earned: number; // Changed from 'annual' to 'earned' to match your usage
 
   @Column()
   updatedAt: Date;
@@ -35,6 +35,9 @@ export class User {
 
   @Column()
   createdAt: Date;
+
+  @Column({ nullable: true })
+  managerId?: string;
 
   // Embedded document in MongoDB
   @Column(type => LeaveBalance)
