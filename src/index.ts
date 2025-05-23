@@ -165,7 +165,47 @@ const init = async () => {
       return h.response({ error: "Registration failed" }).code(500);
     }
   },
-},
+},{
+      method: "POST",
+      path: "/login",
+      handler: async (req, h) => {
+        try {
+          const { email, password } = req.payload;
+          // Find user by email
+          const user = await userRepo.findOneBy({ email });
+          if (!user) {
+            return h.response({ error: "Invalid email" }).code(401);
+          }
+
+          // Compare password
+          const match = await bcrypt.compare(password, user.password);
+          if (!match) {
+            return h.response({ error: "Invalid password" }).code(401);
+          }
+
+          // Check if the user has a role (could be 'employee' or 'admin', etc.)
+          const userRole = user.role || "employee"; // Default to "employee" if no role is found.
+
+          const token = "DummyToken"; // Replace with actual JWT token generation logic
+
+          return h
+            .response({
+              token,
+              user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                role: userRole,
+                leaveBalance: user.leaveBalance || 0,
+              },
+            })
+            .code(200);
+        } catch (err) {
+          console.error("Login failed:", err);
+          return h.response({ error: "Internal Server Error" }).code(500);
+        }
+      },
+    },
     {
       method: "POST",
       path: "/apply-leave",
